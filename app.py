@@ -6,16 +6,15 @@ import os
 @st.cache_resource
 def load_model():
     import tensorflow as tf
-    import gdown
+    import urllib.request
     
     model_path = 'alzheimer_model.h5'
     
     if not os.path.exists(model_path):
-        with st.spinner('Downloading model from Google Drive... (one-time, ~284MB)'):
+        with st.spinner('Downloading model from Hugging Face... (one-time, ~284MB)'):
             try:
-                file_id = '1hfO3Q-R0rK7hpRHhubrw4JPbv2D_7I-Q'
-                url = f'https://drive.google.com/uc?id={file_id}'
-                gdown.download(url, model_path, quiet=False)
+                url = 'https://huggingface.co/muditbilala/alzheimer-detection-model/resolve/main/alzheimer_model.h5'
+                urllib.request.urlretrieve(url, model_path)
                 st.success('✅ Model downloaded successfully!')
             except Exception as e:
                 st.error(f'❌ Download failed: {e}')
@@ -27,7 +26,7 @@ def load_model():
         st.error(f'❌ Load failed: {e}')
         return None
 
-st.set_page_config(page_title="NeuroLens", page_icon="🧠", layout="wide")
+st.set_page_config(page_title="NeuroLens", page_icon="��", layout="wide")
 
 st.markdown("""
 <style>
@@ -49,7 +48,7 @@ st.markdown("### AI-Powered Brain MRI Analysis")
 st.markdown("---")
 
 with st.sidebar:
-    st.header("�� System Info")
+    st.header("📊 System Info")
     if model:
         st.success("✅ **Model Status:** Active")
     else:
@@ -122,5 +121,6 @@ st.markdown("---")
 st.markdown("""
 <div style='text-align: center;'>
     <p><strong>NeuroLens</strong> | Mudit Bhargava | Bennett University 2025</p>
+    <p style='font-size: 12px;'>Model: <a href='https://huggingface.co/muditbilala/alzheimer-detection-model'>Hugging Face</a></p>
 </div>
 """, unsafe_allow_html=True)
