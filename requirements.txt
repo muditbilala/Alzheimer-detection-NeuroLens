@@ -3,3 +3,4 @@ tensorflow-cpu
 pillow<11
 numpy
 protobuf
+h5py
